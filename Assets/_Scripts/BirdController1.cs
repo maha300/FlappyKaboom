@@ -1,111 +1,53 @@
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 
 public class BirdController : MonoBehaviour
 {
-    public float speed = 0.5f;
-    public TMP_Text scoreText;
-
-    private Vector2 initPosition;
-
+    public float jumpForce = 6f;
+    private Rigidbody2D rb;
+    public bool isDead = false;
 
     void Start()
     {
-        initPosition = gameObject.transform.position;
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (isDead) return;  // Stop movement after death
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            // Create a new vector where we modify the x position
-            // of our game object
-            Vector2 pos = new Vector2(
-                gameObject.transform.position.x + speed,
-                gameObject.transform.position.y);
-
-            // Assign new position vector to game object
-            gameObject.transform.position = pos;
-                
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            // Create a new vector where we modify the x position
-            // of our game object
-            Vector2 pos = new Vector2(
-                gameObject.transform.position.x - speed,
-                gameObject.transform.position.y);
-
-            // Assign new position vector to game object
-            gameObject.transform.position = pos;
-
-        }
-        else if (Input.GetKey(KeyCode.UpArrow))
-        {
-            // Create a new vector where we modify the x position
-            // of our game object
-            Vector2 pos = new Vector2(
-                gameObject.transform.position.x,
-                gameObject.transform.position.y + speed);
-
-            // Assign new position vector to game object
-            gameObject.transform.position = pos;
-
-        }
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            // Create a new vector where we modify the x position
-            // of our game object
-            Vector2 pos = new Vector2(
-                gameObject.transform.position.x,
-                gameObject.transform.position.y - speed);
-
-            // Assign new position vector to game object
-            gameObject.transform.position = pos;
-
+            Jump();
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Jump()
     {
-        if(collision.gameObject.tag == "Obstacle")
-        {
-            
-            // On collision with obstacle, subtract 25 points
-            int score = int.Parse(scoreText.text);
-            score = score - 25;
-            scoreText.text = score.ToString();
-
-            if(score <= 0)
-            {
-                Die();
-            }
-        }
-        if(collision.gameObject.tag == "Bomb")
-        {
-
-            // On collision with bomb, subtract 10 points
-            int score = int.Parse(scoreText.text);
-            score = score - 10;
-            scoreText.text = score.ToString();
-            Destroy(collision.gameObject);
-
-            if (score <= 0)
-            {
-                Die();
-            }
-        }
+        rb.linearVelocity = Vector2.up * jumpForce;
     }
 
-    private void Die()
+    // CALL THIS TO KILL THE BIRD
+    public void Die()
     {
-        // Play the death scream
-        gameObject.GetComponent<AudioSource>().Play();
+        if (isDead) return;
 
-        // Flip the bird upside down
-        gameObject.GetComponent<SpriteRenderer>().flipY = true;
+        isDead = true;
 
-        gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+        // Stop movement
+        rb.linearVelocity = Vector2.zero;
+
+        // Optional: freeze rotation, stop physics, etc.
+        rb.gravityScale = 2f;
+
+        Debug.Log("Bird died");
+
+        // Optional place to trigger animations, sounds, restart script, etc.
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    // Auto-detect collisions with pipes or ground
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Die();
     }
 }
