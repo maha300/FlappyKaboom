@@ -17,6 +17,8 @@ public class WaterController : MonoBehaviour
 
     private float verticalVelocity = 0f;
 
+    public bool isDead = false;
+
     void Update()
     {
         HandleWaterMovement();
@@ -28,7 +30,7 @@ public class WaterController : MonoBehaviour
         // When you press space → water rises
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            verticalVelocity = jumpForce;
+            JumpFromArduino();
         }
 
         // Apply gravity to bring water back down
@@ -45,6 +47,13 @@ public class WaterController : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, bottomLimit, topLimit);
         transform.position = pos;
     }
+    public void JumpFromArduino()
+    {
+        if (isDead) return;
+
+        // Same behavior as pressing space bar
+        verticalVelocity = jumpForce;
+    }
 
     void RotateFish()
     {
@@ -56,3 +65,4 @@ public class WaterController : MonoBehaviour
         fish.rotation = Quaternion.Euler(0, 0, rotationZ);
     }
 }
+

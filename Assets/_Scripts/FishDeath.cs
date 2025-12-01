@@ -5,6 +5,8 @@ public class FishDeath : MonoBehaviour
 {
     public WaterController waterController;
     public float restartDelay = 1.2f;
+    public bool isDead = false;
+
 
     void Start()
     {
@@ -22,8 +24,11 @@ public class FishDeath : MonoBehaviour
 
     void Die()
     {
+        isDead = true;
+        waterController.isDead = true;
         // Stop water movement
         waterController.enabled = false;
+
 
         // Optional: stop world scrolling
         MoveLeft[] movers = FindObjectsOfType<MoveLeft>();
