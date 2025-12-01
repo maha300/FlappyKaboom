@@ -867,8 +867,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb83c91470e5aa4db1ecf40ded1da48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
-  scoreText: {fileID: 0}
+  jumpForce: 6
+  isDead: 0
 --- !u!82 &663245688
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1157,6 +1157,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3311788355132455253, guid: 279a233e6d5576f4196c28b6d5bb5a30, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8143951636752000675, guid: d07809873a3df4785b2f5569f89c98f6, type: 3}
+    - target: {fileID: 3311788355132455253, guid: 279a233e6d5576f4196c28b6d5bb5a30, type: 3}
       propertyPath: m_SortingLayer
       value: 2
       objectReference: {fileID: 0}
@@ -1166,11 +1170,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3311788355132455254, guid: 279a233e6d5576f4196c28b6d5bb5a30, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3677
+      value: -0.28456312
       objectReference: {fileID: 0}
     - target: {fileID: 3311788355132455254, guid: 279a233e6d5576f4196c28b6d5bb5a30, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3677
+      value: 0.26935917
       objectReference: {fileID: 0}
     - target: {fileID: 3311788355132455254, guid: 279a233e6d5576f4196c28b6d5bb5a30, type: 3}
       propertyPath: m_LocalScale.z
@@ -1178,11 +1182,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3311788355132455254, guid: 279a233e6d5576f4196c28b6d5bb5a30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.92
+      value: -7.6043
       objectReference: {fileID: 0}
     - target: {fileID: 3311788355132455254, guid: 279a233e6d5576f4196c28b6d5bb5a30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.22
+      value: 0.0716
       objectReference: {fileID: 0}
     - target: {fileID: 3311788355132455254, guid: 279a233e6d5576f4196c28b6d5bb5a30, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1254,8 +1258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb83c91470e5aa4db1ecf40ded1da48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
-  scoreText: {fileID: 0}
+  jumpForce: 6
+  isDead: 0
 --- !u!1 &868690783
 GameObject:
   m_ObjectHideFlags: 0
